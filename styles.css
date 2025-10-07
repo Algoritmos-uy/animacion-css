@@ -1,0 +1,189 @@
+/* Hoja de estilos: transiciones y animaciones (explicaciones detalladas en README.md) */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 100px;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/*
+    Transiciones (hover en botones):
+    - Usamos la propiedad `transition` para animar cambios de estilo cuando cambian
+        las propiedades especificadas (aquí: background-color y transform).
+    - La sintaxis: propiedad duración función-de-tiempo.
+    - Esto evita cambios bruscos y mejora la experiencia de usuario al interactuar.
+*/
+.boton {
+    background-color: #007bff; /* azul */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+/*
+    Estado :hover del botón:
+    - Cambiamos el color de fondo y aplicamos un escalado (scale) para dar feedback.
+    - También añadimos un borde y radio de borde para cambiar la forma visualmente.
+    - Los cambios se animan gracias a la regla `transition` anterior.
+*/
+.boton:hover {
+    background-color: green;
+    transform: scale(1.1);
+    border: solid 2px red;
+    border-radius: 0.5rem;
+}
+
+/*
+  Animaciones básicas con @keyframes:
+  - `animation` es un shorthand que combina nombre, duración, función de tiempo,
+    retraso, número de repeticiones, sentido, etc.
+  - `@keyframes` define el cambio de propiedades a lo largo del tiempo (porcentajes).
+*/
+
+/*
+  .caja:
+  - Un cuadrado que se desplaza horizontalmente usando la animación `mover`.
+  - Duración 3s, easing ease-in-out y loop infinito.
+*/
+.caja {
+    width: 100px;
+    height: 100px;
+    background-color: #28a745;
+    animation: mover 3s ease-in-out infinite;
+}
+
+/*
+  @keyframes mover:
+  - 0%: sin desplazamiento.
+  - 100%: desplazado 300px en el eje X.
+  - Esto hará que el elemento se mueva de izquierda a derecha repetidamente.
+*/
+@keyframes mover {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(300px);
+    }
+}
+
+/*
+  .circulo y .circulo-2:
+  - Crea elementos redondeados usando border-radius: 50%.
+  - Ambos tienen la misma apariencia base, pero rotan en direcciones opuestas
+    gracias a diferentes keyframes.
+  - padding crea espacio interior; useful si hubiera contenido o borde.
+*/
+.circulo {
+    width: 120px;
+    height: 120px;
+    background-color: #ed6d46;
+    border-radius: 50%;
+    padding: 5px;
+    animation: girar 2s linear infinite;
+}
+
+.circulo-2 {
+    width: 120px;
+    height: 120px;
+    background-color: #ed6d46;
+    border-radius: 50%;
+    padding: 5px;
+    animation: girar-2 2s linear infinite;
+}
+
+/*
+  Reglas para <hr> usadas como elementos gráficos:
+  - Se reduce su anchura para que sirvan como líneas cortas en la demo.
+*/
+hr {
+    width: 90px;
+}
+
+/*
+  .hr3, .hr4 y .hr2, .hr5:
+  - Aplican una rotación simple para crear líneas diagonales.
+  - Nota: la propiedad `rotate` es un atajo moderno; en navegadores más antiguos
+    se puede usar `transform: rotate(...)`.
+*/
+.hr3,
+.hr4 {
+    transform: rotate(45deg);
+    width: 80px;
+}
+
+.hr2,
+.hr5 {
+    transform: rotate(-45deg);
+    width: 80px;
+}
+
+/*
+  @keyframes girar y girar-2:
+  - Definen una rotación completa (360deg) en sentido horario y antihorario.
+  - Usar rotaciones completas es útil para crear iconos o elementos con movimiento continuo.
+*/
+@keyframes girar {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes girar-2 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.box {
+    width: 300px;
+    height: 150px;
+    position: absolute;
+    top: 60%;
+    /* Usamos transform para animar en el eje X por rendimiento */
+    transform: translateX(-150%);
+    animation: moveAcross 10s linear infinite;
+}
+
+/* Animación que mueve la caja usando translateX para mejorar rendimiento */
+@keyframes moveAcross {
+    0% {
+        transform: translateX(-150%);
+    }
+    50% {
+        transform: translateX(100%);
+    }
+    51% {
+        transform: translateX(-150%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Preferencia de usuarios que piden menos movimiento: desactivar animaciones */
+@media (prefers-reduced-motion: reduce) {
+    .boton,
+    .caja,
+    .circulo,
+    .circulo-2,
+    .box {
+        transition: none !important;
+        animation: none !important;
+    }
+}
